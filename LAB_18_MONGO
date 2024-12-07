@@ -1,0 +1,76 @@
+===========================part A===================================
+db.BRANCH.insertMany([
+    { BNAME: "VRCE", CITY: "NAGPUR" },
+    { BNAME: "AJNI", CITY: "NAGPUR" },
+    { BNAME: "KAROLBAGH", CITY: "DELHI" },
+    { BNAME: "CHANDI", CITY: "DELHI" },
+    { BNAME: "DHARAMPETH", CITY: "NAGPUR" },
+    { BNAME: "M.G. ROAD", CITY: "BANGLORE" },
+    { BNAME: "ANDHERI", CITY: "BOMBAY" },
+    { BNAME: "VIRAR", CITY: "BOMBAY" },
+    { BNAME: "NEHRU PLACE", CITY: "DELHI" },
+    { BNAME: "POWAI", CITY: "BOMBAY" }
+]);
+db.CUSTOMERS.insertMany([
+    { CNAME: "ANIL", CITY: "CALCUTTA" },
+    { CNAME: "SUNIL", CITY: "DELHI" },
+    { CNAME: "MEHUL", CITY: "BARODA" },
+    { CNAME: "MANDAR", CITY: "PATNA" },
+    { CNAME: "MADHURI", CITY: "NAGPUR" },
+    { CNAME: "PRAMOD", CITY: "NAGPUR" },
+    { CNAME: "SANDIP", CITY: "SURAT" },
+    { CNAME: "SHIVANI", CITY: "BOMBAY" },
+    { CNAME: "KRANTI", CITY: "BOMBAY" },
+    { CNAME: "NAREN", CITY: "BOMBAY" }
+]);
+db.BORROW.insertMany([
+    { LOANNO: 201, CNAME: "ANIL", BNAME: "VRCE", AMOUNT: 1000.00 },
+    { LOANNO: 206, CNAME: "MEHUL", BNAME: "AJNI", AMOUNT: 5000.00 },
+    { LOANNO: 311, CNAME: "SUNIL", BNAME: "DHARAMPETH", AMOUNT: 3000.00 },
+    { LOANNO: 321, CNAME: "MADHURI", BNAME: "ANDHERI", AMOUNT: 2000.00 },
+    { LOANNO: 375, CNAME: "PRMOD", BNAME: "VIRAR", AMOUNT: 8000.00 },
+    { LOANNO: 481, CNAME: "KRANTI", BNAME: "NEHRU PLACE", AMOUNT: 3000.00 }
+]);																							           
+db.DEPOSIT.insertMany([
+    { ACTNO: 101, CNAME: "ANIL", BNAME: "VRCE", AMOUNT: 1000.00, ADATE: new Date("1995-03-01") },
+    { ACTNO: 102, CNAME: "SUNIL", BNAME: "AJNI", AMOUNT: 5000.00, ADATE: new Date("1996-01-04") },
+    { ACTNO: 103, CNAME: "MEHUL", BNAME: "KAROLBAGH", AMOUNT: 3500.00, ADATE: new Date("1995-11-17") },
+    { ACTNO: 104, CNAME: "MADHURI", BNAME: "CHANDI", AMOUNT: 1200.00, ADATE: new Date("1995-12-17") },
+    { ACTNO: 105, CNAME: "PRMOD", BNAME: "M.G. ROAD", AMOUNT: 3000.00, ADATE: new Date("1996-03-27") },
+    { ACTNO: 106, CNAME: "SANDIP", BNAME: "ANDHERI", AMOUNT: 2000.00, ADATE: new Date("1996-03-31") },
+    { ACTNO: 107, CNAME: "SHIVANI", BNAME: "VIRAR", AMOUNT: 1000.00, ADATE: new Date("1995-09-05") },
+    { ACTNO: 108, CNAME: "KRANTI", BNAME: "NEHRU PLACE", AMOUNT: 5000.00, ADATE: new Date("1995-07-02") },
+    { ACTNO: 109, CNAME: "MINU", BNAME: "POWAI", AMOUNT: 7000.00, ADATE: new Date("1995-08-10") }
+]);
+================================================================================================
+(1)-1. Retrieve all data from table DEPOSIT.
+=>db.DEPOSIT.find()
+
+(2)-2. Retrieve all data from table BORROW.  
+=>db.BORROW.find()
+
+3. Retrieve all data from table CUSTOMERS.  
+=>db.CUSTOMERS.find()
+
+4. Insert a record (550,’JAY’,’AJNI’,NULL)in the BORROW table. 
+=>db.BORROW.insertOne({ACTNO:550,CNAME:"JAY",BNAME:"AJNI", AMOUNT: null });
+
+5. Display Account No, Customer Name & Amount from DEPOSIT. 
+=> db.DEPOSIT.find({},{ACTNO: 1, CNAME: 1, BNAME: 1, AMOUNT:1});
+
+6. Display Loan No, Amount from BORROW. 
+=> db.BORROW.find({},{ LOANNO:1,  AMOUNT: 1 });
+
+7. Display loan details of all customers who belongs to ‘ANDHERI’ branch. 
+=> db.BORROW.find({BNAME: "ANDHERI"},{ LOANNO: 1, CNAME: 1, BNAME: 1, AMOUNT: 1 })
+
+8. Give account no and amount of depositor, whose account no is equals to 106.  
+=> db.DEPOSIT.find({ACTNO: 106},{ACTNO: 1, AMOUNT:1});
+
+9. Give name of borrowers having amount greater than 5000.  
+=> db.BORROW.find({AMOUNT: {$gt: 5000}},{ CNAME: 1 });
+
+10. Give name of customers who opened account after date '1-12-96'. 
+=> db.DEPOSIT.find({ADATE:{$gt: new Date("1996-12-01")}},{CNAME:1});
+ 
+===========================================================
